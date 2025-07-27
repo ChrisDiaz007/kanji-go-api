@@ -1,0 +1,29 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  character: MyString
+  meanings: 
+  onyomi: 
+  kunyomi: 
+  name_readings: 
+  notes: 
+  heisig_en: MyString
+  stroke_count: 1
+  grade: 1
+  jlpt_level: 1
+  freq_mainichi_shinbun: 1
+  unicode: MyString
+
+two:
+  character: MyString
+  meanings: 
+  onyomi: 
+  kunyomi: 
+  name_readings: 
+  notes: 
+  heisig_en: MyString
+  stroke_count: 1
+  grade: 1
+  jlpt_level: 1
+  freq_mainichi_shinbun: 1
+  unicode: MyString
