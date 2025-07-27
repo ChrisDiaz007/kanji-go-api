@@ -47,6 +47,7 @@ rails generate devise:install
 ```
 rails generate model User first_name:string last_name:string
 ```
+
 ## Create Kanji Model
 ```
 rails generate model Kanji \
@@ -63,6 +64,7 @@ rails generate model Kanji \
   freq_mainichi_shinbun:integer \
   unicode:string
 ```
+
 ## Create UserKanji Model
 ```
 rails generate model UserKanji \
@@ -70,15 +72,21 @@ rails generate model UserKanji \
   kanji:references \
   last_reviewed_at:datetime
 ```
+
 ## Run Migrations
 ```
 rail db:migrate
 ```
+
 ## Add Associations
 ```
 class Kanji < ApplicationRecord
   has_many :user_kanjis, dependent: :destroy
   has_many :users, through: :user_kanjis
 end
+```
 
+## Install Pundit
+```
+rails generate pundit:install
 ```
