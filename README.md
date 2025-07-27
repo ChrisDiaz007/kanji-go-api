@@ -48,24 +48,3 @@ rails generate devise:install
 rails generate model User first_name:string last_name:string
 ```
 
-### ENV Variables
-Create `.env` file
-```
-touch .env
-```
-Inside `.env`, set these variables. For any APIs, see group Slack channel.
-```
-CLOUDINARY_URL=your_own_cloudinary_url_key
-```
-
-### DB Setup
-```
-rails db:create
-rails db:migrate
-rails db:seed
-```
-
-### Run a server
-```
-rails s
-```
