@@ -90,3 +90,8 @@ end
 ```
 rails generate pundit:install
 ```
+
+## Add policy
+```
+rails generate pundit:policy user_kanji
+```
