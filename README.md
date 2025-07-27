@@ -20,12 +20,20 @@ gh repo create --public --source=.
 ## Designing the DB
 
 
-Create database
+## Creating the Model
 ```
-rails g 
+rails db:create
 ```
 
-Install gems
+## Gems Used
+```
+gem 'devise'     # Authentication
+gem 'pundit'     # Authorization
+gem 'jwt'        # JSON Web Tokens
+gem 'rack-cors'  # CORS for frontend
+```
+
+## Install gems
 ```
 bundle install
 ```
