@@ -8,14 +8,21 @@
 ## Getting Started
 ### Setup
 
-Create App
+## Create App
 ```
-rails new -app-name- --api -d postgresql
+rails new kanji-go-api --api -d postgresql
 ```
+## Create Github repository
+```
+gh repo create --public --source=.
+```
+
+## Designing the DB
+
 
 Create database
 ```
-rails g model 
+rails g 
 ```
 
 Install gems
