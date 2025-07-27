@@ -38,6 +38,16 @@ gem 'rack-cors'
 bundle install
 ```
 
+## Install Devise
+```
+rails generate devise:install
+```
+
+## Create User Model
+```
+rails generate model User first_name:string last_name:string
+```
+
 ### ENV Variables
 Create `.env` file
 ```
