@@ -47,4 +47,8 @@ rails generate devise:install
 ```
 rails generate model User first_name:string last_name:string
 ```
+Run Migrations
+```
+rails db:migrate
+```
 
