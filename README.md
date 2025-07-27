@@ -47,8 +47,31 @@ rails generate devise:install
 ```
 rails generate model User first_name:string last_name:string
 ```
-Run Migrations
+## Create Kanji Model
 ```
-rails db:migrate
+rails generate model Kanji \
+  character:string \
+  meanings:jsonb \
+  onyomi:jsonb \
+  kunyomi:jsonb \
+  name_readings:jsonb \
+  notes:jsonb \
+  heisig_en:string \
+  stroke_count:integer \
+  grade:integer \
+  jlpt_level:integer \
+  freq_mainichi_shinbun:integer \
+  unicode:string
+```
+## Create UserKanji Model
+```
+rails generate model UserKanji \
+  user:references \
+  kanji:references \
+  last_reviewed_at:datetime
+```
+## Run Migrations
+```
+rail db:migrate
 ```
 
