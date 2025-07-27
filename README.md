@@ -74,7 +74,7 @@ rails generate model UserKanji \
 ```
 rail db:migrate
 ```
-## Add Associdation
+## Add Associations
 ```
 class Kanji < ApplicationRecord
   has_many :user_kanjis, dependent: :destroy
