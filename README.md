@@ -10,7 +10,12 @@
 
 Create App
 ```
-rails new kanji-go-api --api -d postgresql
+rails new -app-name- --api -d postgresql
+```
+
+Create database
+```
+rails g model 
 ```
 
 Install gems
