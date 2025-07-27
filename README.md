@@ -2,13 +2,16 @@
 
 ## Built With
 - [Rails 7](https://guides.rubyonrails.org/) - Backend / Front-end
-- [Heroku](https://heroku.com/) - Deployment
 - [PostgreSQL](https://www.postgresql.org/) - Database
-- [Bootstrap](https://getbootstrap.com/) — Styling
-- [Figma](https://www.figma.com) — Prototyping
+- [Heroku](https://heroku.com/) - Deployment
 
 ## Getting Started
 ### Setup
+
+Create App
+```
+rails new kanji-go-api --api -d postgresql
+```
 
 Install gems
 ```
