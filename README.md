@@ -27,10 +27,10 @@ rails db:create
 
 ## Gems Used
 ```
-gem 'devise'     # Authentication
-gem 'pundit'     # Authorization
-gem 'jwt'        # JSON Web Tokens
-gem 'rack-cors'  # CORS for frontend
+gem 'devise'
+gem 'pundit'
+gem 'jwt'
+gem 'rack-cors'
 ```
 
 ## Install gems
