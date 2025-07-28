@@ -16,11 +16,11 @@ ActiveRecord::Schema[7.1].define(version: 2025_07_27_194725) do
 
   create_table "kanjis", force: :cascade do |t|
     t.string "character"
-    t.jsonb "meanings"
-    t.jsonb "onyomi"
-    t.jsonb "kunyomi"
-    t.jsonb "name_readings"
-    t.jsonb "notes"
+    t.string "meanings", default: [], array: true
+    t.string "onyomi", default: [], array: true
+    t.string "kunyomi", default: [], array: true
+    t.string "name_readings", default: [], array: true
+    t.string "notes", default: [], array: true
     t.string "heisig_en"
     t.integer "stroke_count"
     t.integer "grade"
