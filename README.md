@@ -150,5 +150,13 @@ namespace :import do
     puts "🎉 Done! Kanji imported."
   end
 end
-
 ```
+## CORS
+CORS == Cross-origin resource sharing (CORS) A nice explanation can be found in this article. In summary:
+````
+CORS is an HTTP-header based security mechanism that defines who’s allowed to interact with your API. CORS is built into all modern web browsers, so in this case the “client” is a front-end of the application.
+
+In the most simple scenario, CORS will block all requests from a different origin than your API. “Origin” in this case is the combination of protocol, domain, and port. If any of these three will be different between the front end and your Rails application, then CORS won’t allow the client to connect to the API.
+
+So, for example, if your front end is running at https://example.com:443 and your Rails application is running at https://example.com:3000, then CORS will block the connections from the front end to the Rails API. CORS will do so even if they both run on the same server.
+````
