@@ -152,8 +152,8 @@ namespace :import do
 end
 ```
 ## CORS
-`>`
-CORS == Cross-origin resource sharing (CORS) A nice explanation can be found in this article. In summary:
+
+> CORS == Cross-origin resource sharing (CORS) A nice explanation can be found in this article. In summary:
 
 CORS is an HTTP-header based security mechanism that defines who’s allowed to interact with your API. CORS is built into all modern web browsers, so in this case the “client” is a front-end of the application.
 
