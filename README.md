@@ -1,5 +1,7 @@
 ## Kanji go API
 
+<img width="1913" height="953" alt="Screenshot 2025-07-28 at 12 47 12 PM" src="https://github.com/user-attachments/assets/d788d5a6-15ef-4e6e-9a14-e8fe9c59415d" />
+
 ## Built With
 - [Rails 7](https://guides.rubyonrails.org/) - Backend / Front-end
 - [PostgreSQL](https://www.postgresql.org/) - Database
