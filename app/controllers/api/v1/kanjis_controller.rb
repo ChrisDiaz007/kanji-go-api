@@ -6,7 +6,16 @@ class Api::V1::KanjisController < ApplicationController
     else
       @kanjis = Kanji.all
     end
-
     render json: @kanjis
   end
+
+  def show
+    @kanji = Kanji.find_by(character: params[:id])
+    if @kanji
+      render json: @kanji
+    else
+      render json: { error: "Kanji not found" }, status: :not_found
+    end
+  end
+
 end

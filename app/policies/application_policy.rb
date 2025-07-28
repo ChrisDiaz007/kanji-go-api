@@ -2,6 +2,7 @@
 
 class ApplicationPolicy
   attr_reader :user, :record
+  include Pundit
 
   def initialize(user, record)
     @user = user
@@ -49,5 +50,11 @@ class ApplicationPolicy
     private
 
     attr_reader :user, :scope
+  end
+
+  private
+
+  def user_not_authorized
+    render json: { error: "Not authorized" }, status: :forbidden
   end
 end
