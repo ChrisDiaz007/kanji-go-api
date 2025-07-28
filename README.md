@@ -43,7 +43,7 @@ bundle install
 
 ## Install Devise
 ```
-rails generate devise:install
+ails generate devise User first_name:string last_name:string
 ```
 
 ## Create User Model
