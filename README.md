@@ -160,3 +160,28 @@ end
 > In the most simple scenario, CORS will block all requests from a different origin than your API. “Origin” in this case is the combination of protocol, domain, and port. If any of these three will be different between the front end and your Rails application, then CORS won’t allow the client to connect to the API.
 > 
 > So, for example, if your front end is running at https://example.com:443 and your Rails application is running at https://example.com:3000, then CORS will block the connections from the front end to the Rails API. CORS will do so even if they both run on the same server.
+
+So the TL;DR is that we have to enable our front-end to access our back-end in 2 steps:
+1. Uncomment gem "rack-cors" in the GEMFILE, then bundle install
+2. Go to config/initializers/cors.rb and specify from which URL (and which actions) that you are willing to accept requests
+
+For example:
+```
+Rails.application.config.middleware.insert_before 0, Rack::Cors do
+  allow do
+    origins 'http://example.com:80'
+    resource '/orders',
+      :headers => :any,
+      :methods => [:post]
+  end
+end
+```
+Or to just blindly allow all (only for now)
+```
+Rails.application.config.middleware.insert_before 0, Rack::Cors do
+  allow do
+    origins '*'
+    resource '*', headers: :any, methods: [:get, :post, :patch, :put]
+  end
+end
+```
