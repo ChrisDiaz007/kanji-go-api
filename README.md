@@ -133,7 +133,10 @@ rails generate pundit:policy user_kanji
 ```
 
 ## Rake from another API
-Create /lib/tasks/import_kanji.rake
+Create /lib/tasks/import_kanji.rake file
+```
+touch lib//tasks/import_kanji.rake
+```
 This will rake from https://kanjiapi.dev/ and import into your database
 This can take a while since it's raking 13,000 Kanji's.
 
