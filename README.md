@@ -102,6 +102,16 @@ class User < ApplicationRecord
   has_many :kanjis, through: :user_kanjis
 end
 ```
+## Create Controllers
+Kanjis Controller
+```
+rails generate controller api/v1/kanjis
+```
+User_Kanjis Controller
+```
+rails generate controller api/v1/user_kanjis
+```
+
 
 ## Install Pundit
 Add gem
