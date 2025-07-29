@@ -104,6 +104,15 @@ end
 ```
 
 ## Install Pundit
+Add gem
+```
+gem 'pundit'
+```
+Install gem
+```
+Bundle install
+```
+Install pundit
 ```
 rails generate pundit:install
 ```
