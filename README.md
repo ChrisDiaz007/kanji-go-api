@@ -42,6 +42,10 @@ Install gem
 ```
 bundle install
 ```
+Install devise
+```
+rails generate devise:install
+```
 Generate User Model with Devise
 ```
 rails generate devise User first_name:string last_name:string
