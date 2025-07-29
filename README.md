@@ -25,8 +25,11 @@ gh repo create --public --source=.
 ## Essentials Gems Used
 
 > gem 'devise'
+> 
 > gem 'pundit'
+> 
 > gem 'devise-jwt'
+> 
 > gem 'rack-cors'
 
 
