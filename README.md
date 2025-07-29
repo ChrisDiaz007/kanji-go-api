@@ -111,7 +111,14 @@ User_Kanjis Controller
 ```
 rails generate controller api/v1/user_kanjis
 ```
-
+## Add controller Routes
+```
+  namespace :api, defaults: { format: :json } do
+    namespace :v1 do
+      resources :kanjis, only: [ :index, :show ]
+    end
+  end
+```
 
 ## Install Pundit
 Add gem
