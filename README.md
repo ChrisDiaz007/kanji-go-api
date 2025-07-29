@@ -89,13 +89,15 @@ rails generate model UserKanji \
 rail db:migrate
 ```
 
-## Add Associations
+## Set Model Associations
+app/models/kanji.rb
 ```
 class Kanji < ApplicationRecord
   has_many :user_kanjis, dependent: :destroy
   has_many :users, through: :user_kanjis
 end
 ```
+app/models/user.rb
 ```
 class User < ApplicationRecord
   has_many :user_kanjis
