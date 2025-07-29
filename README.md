@@ -213,3 +213,23 @@ Rails.application.config.middleware.insert_before 0, Rack::Cors do
   end
 end
 ```
+## Adding a Front-End
+Without knowing the endpoints or having our React app up and running, we have no way to interact with this app. So we can build a simple interface so that someone can play around with our API.
+Generate the Controller
+```
+rails g controller pages home
+```
+Let's generate this controller (plus the view), but we need to be careful here on what it's creating. We need to update the routes and controller.
+
+Update the Controller
+You might notice that the new controller inheriting from ApplicationController which is inheriting from ActionController::API. It's using the API module because we created our app with the --api flag. This limits our app to only API functionality so we can change it back to the normal Rails flow. So, our controller should inherit from ActionController::Base
+```
+class PagesController < ActionController::Base
+  def home
+  end
+end
+```
+Update Routes
+The generator also created a route get "pages/home", which actually isn't useful to us at all. Let's go into our config/routes.rb file and change that to root to: pages#home instead.
+Update the View
+Since we used the --api flag when creating the app, we don't have the typical views/layouts/application.html.erb file anymore. Our app wasn't expecting any HTML views. So for our home.html.erb page, We'll have to add a full HTML setup. You can use the one in this tutorial as a starting point
