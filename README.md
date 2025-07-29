@@ -182,6 +182,10 @@ namespace :import do
   end
 end
 ```
+Now import files
+```
+rake import:kanji
+```
 ## CORS
 
 > CORS == Cross-origin resource sharing (CORS) A nice explanation can be found in this article. In summary:
