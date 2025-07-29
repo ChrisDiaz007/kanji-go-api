@@ -34,9 +34,9 @@ gh repo create --public --source=.
 
 
 ## Install Devise
-ADD GEM
+Add gem
 ```
-gem 'devise
+gem 'devise'
 ```
 Install gem
 ```
