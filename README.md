@@ -63,7 +63,7 @@ rails generate model Kanji \
   freq_mainichi_shinbun:integer \
   unicode:string
 ```
-## Update Model for using array
+Update Model for using array
 ```
   t.string :meanings, array: true, default: []
   t.string :onyomi, array: true, default: []
