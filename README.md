@@ -11,7 +11,7 @@
 ## Getting Started
 ### Setup
 
-## Create App
+## Create API App
 ```
 rails new kanji-api --api -d postgresql
 cd kanji-api
@@ -42,14 +42,9 @@ Install gem
 ```
 bundle install
 ```
-
+Generate User Model with Devise
 ```
 rails generate devise User first_name:string last_name:string
-```
-
-## Create User Model
-```
-rails generate model User first_name:string last_name:string
 ```
 
 ## Create Kanji Model
