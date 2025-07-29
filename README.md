@@ -13,37 +13,35 @@
 
 ## Create App
 ```
-rails new kanji-go-api --api -d postgresql
+rails new kanji-api --api -d postgresql
+cd kanji-api
+rails db:create
 ```
 ## Create Github repository
 ```
 gh repo create --public --source=.
 ```
 
-## Designing the DB
+## Essentials Gems Used
+
+> gem 'devise'
+> gem 'pundit'
+> gem 'devise-jwt'
+> gem 'rack-cors'
 
 
-## Creating the Model
+## Install Devise
+ADD GEM
 ```
-rails db:create
+gem 'devise
 ```
-
-## Gems Used
-```
-gem 'devise'
-gem 'pundit'
-gem 'jwt'
-gem 'rack-cors'
-```
-
-## Install gems
+Install gem
 ```
 bundle install
 ```
 
-## Install Devise
 ```
-ails generate devise User first_name:string last_name:string
+rails generate devise User first_name:string last_name:string
 ```
 
 ## Create User Model
