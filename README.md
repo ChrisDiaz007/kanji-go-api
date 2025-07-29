@@ -96,6 +96,12 @@ class Kanji < ApplicationRecord
   has_many :users, through: :user_kanjis
 end
 ```
+```
+class User < ApplicationRecord
+  has_many :user_kanjis
+  has_many :kanjis, through: :user_kanjis
+end
+```
 
 ## Install Pundit
 ```
