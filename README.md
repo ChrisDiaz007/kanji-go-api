@@ -251,7 +251,10 @@ Update the View
 Since we used the --api flag when creating the app, we don't have the typical views/layouts/application.html.erb file anymore. Our app wasn't expecting any HTML views. So for our home.html.erb page, We'll have to add a full HTML setup. You can use the one in this tutorial as a starting point
 
 ## Heroku Deployment
-Step 1: Create a Procfile for Heroku
+Step 1: Create a Procfile for Heroku using Puma web server
+```
+touch Procfile
+```
 ```
 web: bundle exec puma -C config/puma.rb 
 ```
