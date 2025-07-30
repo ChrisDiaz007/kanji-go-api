@@ -271,4 +271,13 @@ heroku addons:create heroku-postgresql:essential-0
 git push heroku master
 heroku run rails db:migrate
 ```
-Step 4. 
+Step 4. Push Your Local DB to Heroku
+Reset the Heroku database
+```
+heroku pg:reset DATABASE_URL --app kanji-api
+```
+After reset, push your local DB
+```
+heroku pg:push kanji_api_development DATABASE_URL --app kanji-api
+```
+🎉 Your database push to Heroku completed successfully.
