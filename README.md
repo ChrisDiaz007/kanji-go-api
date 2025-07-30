@@ -249,3 +249,23 @@ Update Routes
 The generator also created a route get "pages/home", which actually isn't useful to us at all. Let's go into our config/routes.rb file and change that to root to: pages#home instead.
 Update the View
 Since we used the --api flag when creating the app, we don't have the typical views/layouts/application.html.erb file anymore. Our app wasn't expecting any HTML views. So for our home.html.erb page, We'll have to add a full HTML setup. You can use the one in this tutorial as a starting point
+
+## Heroku Deployment
+Step 1: Create a Procfile for Heroku
+```
+web: bundle exec puma -C config/puma.rb 
+```
+Step 2: Update the database configuration for Heroku
+```
+production:
+  <<: *default
+  url: <%= ENV['DATABASE_URL'] %>
+```
+Steo 3. Deploy to heroku
+```
+heroku create kanji-api --region=us
+heroku addons:create heroku-postgresql:essential-0
+git push heroku master
+heroku run rails db:migrate
+```
+Step 4. 
