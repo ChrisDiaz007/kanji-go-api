@@ -269,14 +269,18 @@ Steo 3. Deploy to heroku
 heroku create kanji-api --region=us
 heroku addons:create heroku-postgresql:essential-0
 git push heroku master
-heroku run rails db:migrate
 ```
 Step 4. Push Your Local DB to Heroku
-Reset the Heroku database
+Push your local DB
+```
+heroku pg:push kanji_api_development DATABASE_URL --app kanji-api
+```
+If you get an error like "Remote database is not empty", it means you previously ran rails db:migrate or the DB was already created. What you can do is Reset the Heroku database.
+To fix that:
 ```
 heroku pg:reset DATABASE_URL --app kanji-api
 ```
-After reset, push your local DB
+Then re-run:
 ```
 heroku pg:push kanji_api_development DATABASE_URL --app kanji-api
 ```
