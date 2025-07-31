@@ -359,3 +359,10 @@ class Api::V1::BaseController < ActionController::API
   end
 end
 ```
+Next is to change some association for kanjis_controller.rb and user_kanjis_controller.rb
+```
+class Api::V1::KanjisController < Api::V1::BaseController
+class Api::V1::UserKanjisController < Api::V1::BaseController
+```
+Why do this? because we want KanjisController and UserKanjsController to inherit from base_controller.rb using pundit + API-specific logic.
+<img width="475" height="61" alt="Screenshot 2025-07-31 at 9 16 49 AM" src="https://github.com/user-attachments/assets/0597d2b3-6aed-4182-9eab-ca0ee7b9b2bb" />
