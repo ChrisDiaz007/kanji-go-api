@@ -463,3 +463,9 @@ Add JWT configuration at the end of the file in config/initializers/devise.rb
      jwt.expiration_time = 30.minutes.to_i
    end
 ```
+Update Devise Configuration
+Find the line that says config.navigational_formats and replace with
+This tells Devise not to expect HTML responses since we're building an API.
+```
+config.navigational_formats = []
+```
