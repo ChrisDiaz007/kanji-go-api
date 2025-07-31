@@ -124,7 +124,7 @@ rails generate controller api/v1/user_kanjis
 
 ## Update Controllers
 app/api/v1/kanjis_controller.rb
-This will allow to search a kanji character http://localhost:3000/api/v1/kanjis?character=%E5%AE%B6
+This makes it so you can search a specific kanji and returns json, for example character http://localhost:3000/api/v1/kanjis?character=家
 ```
   def index
     @kanjis = Kanji.all
@@ -136,7 +136,6 @@ This will allow to search a kanji character http://localhost:3000/api/v1/kanjis?
     render json: @kanjis
   end
 ```
-
 
 ## Install Pundit
 Add gem
