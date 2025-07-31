@@ -423,3 +423,28 @@ class Api::V1::UserKanjisController < Api::V1::BaseController
   end
 end
 ```
+## Install Devise-JWT
+Add gem
+```
+gem 'devise-jwt'
+```
+Install gem
+```
+bundle install
+```
+Generate JWT secret Key
+```
+rails secret
+```
+Add JWT secret to your credentials
+```
+rauks credentials:edit
+```
+add this line fo the file:
+```
+jwt_secret_key: [paste the secret key]
+```
+Generate Devise-JWT configuration
+```
+rails generate devise:install
+```
