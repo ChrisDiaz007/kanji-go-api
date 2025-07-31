@@ -469,3 +469,13 @@ This tells Devise not to expect HTML responses since we're building an API.
 ```
 config.navigational_formats = []
 ```
+Update User Model
+```
+devise :database_authenticatable, :registerable,
+            :recoverable, :rememberable, :validatable,
+            :jwt_authenticatable, jwt_revocation_strategy: JwtDenylist
+```
+Create JWT Denylist Model
+```
+rails generate model jwt_denylist jti:string exp:datetime
+```
