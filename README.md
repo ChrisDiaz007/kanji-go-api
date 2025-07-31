@@ -448,3 +448,18 @@ Generate Devise-JWT configuration
 ```
 rails generate devise:install
 ```
+if you can an error Type n and press Enter to not overwrite the file
+
+Add JWT configuration at the end of the file in config/initializers/devise.rb
+```
+   config.jwt do |jwt|
+     jwt.secret = Rails.application.credentials.jwt_secret_key
+     jwt.dispatch_requests = [
+       ['POST', %r{^/login$}]
+     ]
+     jwt.revocation_requests = [
+       ['DELETE', %r{^/logout$}]
+     ]
+     jwt.expiration_time = 30.minutes.to_i
+   end
+```
