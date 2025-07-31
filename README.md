@@ -117,7 +117,7 @@ rails generate controller api/v1/user_kanjis
 ```
   namespace :api, defaults: { format: :json } do
     namespace :v1 do
-      resources :kanjis, only: [ :index, :show ]
+      resources :kanjis, only: [ :index ]
     end
   end
 ```
