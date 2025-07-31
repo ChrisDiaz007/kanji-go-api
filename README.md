@@ -125,6 +125,7 @@ rails generate controller api/v1/user_kanjis
 ## Update Controllers
 app/api/v1/kanjis_controller.rb
 This makes it so you can search a specific kanji and returns json, for example character http://localhost:3000/api/v1/kanjis?character=家
+Be sure to install JSONVue chrome extension so the return json is more human readable to the eye.
 ```
   def index
     @kanjis = Kanji.all
@@ -136,26 +137,8 @@ This makes it so you can search a specific kanji and returns json, for example c
     render json: @kanjis
   end
 ```
-
-## Install Pundit
-Add gem
-```
-gem 'pundit'
-```
-Install gem
-```
-Bundle install
-```
-Install pundit
-```
-rails generate pundit:install
-```
-
-## Create User_Kanji policy
-```
-rails generate pundit:policy user_kanji
-```
-Now what we will create is a base_controller.rb 
+At this point your kanji database and is ready for localhost testing, you can add your own data or you can import data from another free source API https://kanjiapi.dev/
+Follow the next step that will show import rake, CORS and deployment to Heroku.
 
 ## Rake from another API
 Create /lib/tasks/import_kanji.rake file
@@ -302,3 +285,24 @@ Then re-run:
 heroku pg:push kanji_api_development DATABASE_URL --app kanji-api
 ```
 🎉 Your database push to Heroku completed successfully.
+
+## Install Pundit
+Add gem
+```
+gem 'pundit'
+```
+Install gem
+```
+Bundle install
+```
+Install pundit
+```
+rails generate pundit:install
+```
+
+## Create User_Kanji policy
+```
+rails generate pundit:policy user_kanji
+```
+Now what we will create is a base_controller.rb 
+
