@@ -360,10 +360,66 @@ class Api::V1::BaseController < ActionController::API
 end
 ```
 Next is to change some association for kanjis_controller.rb and user_kanjis_controller.rb
+inherits Pundit + API logic from BaseController
 ```
 class Api::V1::KanjisController < Api::V1::BaseController
 class Api::V1::UserKanjisController < Api::V1::BaseController
 ```
-Why do this? because we want KanjisController and UserKanjsController to inherit from base_controller.rb using pundit + API-specific logic.
+Why do this? because we want both controllers to inherit from base_controller.rb using pundit + API-specific logic.
 
 <img width="475" height="61" alt="Screenshot 2025-07-31 at 9 16 49 AM" src="https://github.com/user-attachments/assets/0597d2b3-6aed-4182-9eab-ca0ee7b9b2bb" />
+
+## Setting up Authentication
+
+Add association to app/controllers/api/v1/base_controller.rb
+```
+before_action :authenticate_user!
+```
+Add association to app/controllers/api/v1/user_kanjis_controller.rb
+```
+class Api::V1::UserKanjisController < Api::V1::BaseController
+  def index
+    @user_kanjis = policy_scope(UserKanji)
+    render json: @user_kanjis
+  end
+
+  def show
+    @user_kanji = UserKanji.find(params[:id])
+    authorize @user_kanji
+    render json: @user_kanji
+  end
+
+  def create
+    @user_kanji = UserKanji.new(user_kanji_params)
+    authorize @user_kanji
+    if @user_kanji.save
+      render json: @user_kanji
+    else
+      render json: { errors: @user_kanji.errors }, status: :unprocessable_entity
+    end
+  end
+
+  def update?
+    @user_kanji = UserKanji.find(find(params[:id]))
+    authorize @user_kanji
+    if @user_kanji.update(user_kanji_params)
+      render json: @user_kanji
+    else
+      render json: { errors: @user_kanji.errors }, status: :unprocessable_entity
+    end
+  end
+
+  def destroy
+    @user_kanji = UserKanji.find(params[:id])
+    authorize @user_kanji
+    @user_kanji.destroy
+    head :no_content
+  end
+
+  private
+
+  def user_kanji_params
+    params.require(:user_kanji).permit(:kanji_id)
+  end
+end
+```
