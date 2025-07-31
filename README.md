@@ -122,6 +122,22 @@ rails generate controller api/v1/user_kanjis
   end
 ```
 
+## Update Controllers
+app/api/v1/kanjis_controller.rb
+This will allow to search a kanji character http://localhost:3000/api/v1/kanjis?character=%E5%AE%B6
+```
+  def index
+    @kanjis = Kanji.all
+    if params[:character].present?
+      @kanjis = Kanji.where('character ILIKE ?', "%#{params[:character]}%")
+    else
+      @kanjis = Kanji.all
+    end
+    render json: @kanjis
+  end
+```
+
+
 ## Install Pundit
 Add gem
 ```
@@ -136,10 +152,11 @@ Install pundit
 rails generate pundit:install
 ```
 
-## Add policy
+## Create User_Kanji policy
 ```
 rails generate pundit:policy user_kanji
 ```
+Now what we will create is a base_controller.rb 
 
 ## Rake from another API
 Create /lib/tasks/import_kanji.rake file
