@@ -9,7 +9,17 @@
 - [Heroku](https://heroku.com/) - Deployment
 
 ## Getting Started
-### Setup
+## Essentials Gems Being Used
+
+> gem 'devise'
+> 
+> gem 'pundit'
+> 
+> gem 'devise-jwt'
+>
+> gem 'jsonapi-serializer'
+> 
+> gem 'rack-cors'
 
 ## Create API App
 ```
@@ -26,18 +36,36 @@ rails db:create
 gh repo create --public --source=.
 ```
 
-## Essentials Gems Used
-
-> gem 'devise'
-> 
-> gem 'pundit'
-> 
-> gem 'devise-jwt'
->
-> gem 'jsonapi-serializer'
-> 
-> gem 'rack-cors'
-
+## Notes
+1. Check for below flag in config/application.rb
+```
+#config/application.rb
+config.api_only = true
+```
+2. Check for postgres setup in config/database.yml
+```
+#config/database.yml
+default: &default
+  adapter: postgresql
+  encoding: unicode
+```
+## configure rack-middleware for api only application
+Update Gemfile to add/uncomment gem 'rack-cors'
+And add the following contents to the config/initializers/cors.rb file.
+```
+# config/initializers/cors.rb
+Rails.application.config.middleware.insert_before 0, Rack::Cors do
+  allow do
+    origins 'http://localhost:3000'
+    resource(
+      '*',
+      headers: :any,
+      expose: ['access-token', 'expiry', 'token-type', 'Authorization'],
+      methods: [:get, :patch, :put, :delete, :post, :options, :show]
+    )
+  end
+end
+```
 
 ## Install Devise
 Add gem
