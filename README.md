@@ -1,10 +1,10 @@
-## Creating a BackEnd Application with postgresql
+## Creating a BackEnd Application with postgresql / devise-jwt authentication
 
 <img width="1093" height="769" alt="Screenshot 2025-07-28 at 12 48 31 PM" src="https://github.com/user-attachments/assets/a13c7217-151d-47e5-b339-be3e3ae5b010" />
 
 
 ## Built With
-- [Rails 7](https://guides.rubyonrails.org/) - Backend / Front-end
+- [Rails 7](https://guides.rubyonrails.org/) - Backend
 - [PostgreSQL](https://www.postgresql.org/) - Database
 - [Heroku](https://heroku.com/) - Deployment
 
@@ -17,6 +17,9 @@ rails new kanji-api --api -d postgresql
 cd kanji-api
 rails db:create
 ```
+# Creates below 2 databases
+# Created database 'kanji_api_development'
+# Created database 'kanji_api_test'
 ## Create Github repository
 ```
 gh repo create --public --source=.
@@ -29,6 +32,8 @@ gh repo create --public --source=.
 > gem 'pundit'
 > 
 > gem 'devise-jwt'
+>
+> gem 'jsonapi-serializer'
 > 
 > gem 'rack-cors'
 
