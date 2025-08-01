@@ -16,10 +16,11 @@
 rails new kanji-api --api -d postgresql
 cd kanji-api
 rails db:create
-```
+
 # Creates below 2 databases
 # Created database 'kanji_api_development'
 # Created database 'kanji_api_test'
+```
 ## Create Github repository
 ```
 gh repo create --public --source=.
