@@ -13,13 +13,13 @@
 
 > gem 'devise'
 > 
-> gem 'pundit'
-> 
 > gem 'devise-jwt'
 >
 > gem 'jsonapi-serializer'
 > 
 > gem 'rack-cors'
+>
+> gem 'pundit'
 
 ## Create API App
 ```
@@ -67,11 +67,16 @@ Rails.application.config.middleware.insert_before 0, Rack::Cors do
 end
 ```
 
-## Install Devise
+## Install Devise using JWT Authentication
 Add gem
 ```
 gem 'devise'
+gem `devise-jwt`
+gem `gem 'jsonapi-serializer'
+
 ```
+• devise’ and ‘devise-jwt’ for authentication and the dispatch and revocation of JWT tokens
+• jsonapi-serializer’ gem for formatting json responses.
 Install gem
 ```
 bundle install
