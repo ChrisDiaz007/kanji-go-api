@@ -75,8 +75,9 @@ gem `devise-jwt`
 gem `gem 'jsonapi-serializer'
 
 ```
-• devise’ and ‘devise-jwt’ for authentication and the dispatch and revocation of JWT tokens
-• jsonapi-serializer’ gem for formatting json responses.
+> devise’ and ‘devise-jwt’ for authentication and the dispatch and revocation of JWT tokens
+> 
+> jsonapi-serializer’ gem for formatting json responses.
 Install gem
 ```
 bundle install
@@ -85,10 +86,262 @@ Install devise
 ```
 rails generate devise:install
 ```
-Generate User Model with Devise
+For API only apps, navigation format should be emtpy
 ```
-rails generate devise User first_name:string last_name:string
+#config/initializers/devise.rb
+config.navigational_formats = []
 ```
+
+Generate User Model
+```
+rails generate devise User
+# If you know wha information your User model will have you can just add it
+# rails generate devise User first_name:string last_name:string
+rails db:create db:migrate
+```
+Create devise Session and Registrations Controllers
+```
+rails g devise:controllers users -c sessions registrations
+```
+Update sessions_controller and registrations_controller
+```
+#app/controllers/users/sessions_controller.rb
+class Users::SessionsController < Devise::SessionsController
+  respond_to :json
+end
+```
+```
+#app/controllers/users/registrations_controller.rb
+class Users::RegistrationsController < Devise::RegistrationsController
+  respond_to :json
+end
+```
+Add the routes aliases to override default routes provided by devise in the routes.rb
+```
+#config/routes.rb
+Rails.application.routes.draw do
+  devise_for :users, path: '', path_names: {
+    sign_in: 'login',
+    sign_out: 'logout',
+    registration: 'signup'
+  },
+  controllers: {
+    sessions: 'users/sessions',
+    registrations: 'users/registrations'
+  }
+end
+```
+Configure devise-jwt
+```
+#config/initializers/devise.rb
+config.jwt do |jwt|
+  jwt.secret = Rails.application.credentials.fetch(:secret_key_base)
+  jwt.dispatch_requests = [
+    ['POST', %r{^/login$}]
+  ]
+  jwt.revocation_requests = [
+    ['DELETE', %r{^/logout$}]
+  ]
+  jwt.expiration_time = 30.minutes.to_i
+end
+```
+
+> The jwt.expiration_time sets the expiration time for the generated token. In this example, it’s 30 minutes.
+
+Set up a revocation strategy
+```
+rails g migration addJtiToUsers jti:string:index:unique
+```
+Update Migration
+```
+#db/migrate/xxxxxxxxx_add_jti_to_users.rb
+def change
+  add_column :users, :jti, :string, null: false
+  add_index :users, :jti, unique: true
+  # If you already have user records, you will need to initialize its `jti` column before setting it to not nullable. Your migration will look this way:
+  # add_column :users, :jti, :string
+  # User.all.each { |user| user.update_column(:jti, SecureRandom.uuid) }
+  # change_column_null :users, :jti, false
+  # add_index :users, :jti, unique: true
+end
+```
+Update user.rb file to add revocation strategy
+```
+#app/models/user.rb
+class User < ApplicationRecord
+  include Devise::JWT::RevocationStrategies::JTIMatcher
+  # Include default devise modules. Others available are:
+  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+  devise :database_authenticatable, :registerable,
+         :recoverable, :rememberable, :validatable,
+         :jwt_authenticatable, jwt_revocation_strategy: self
+end
+```
+Run Migrations
+```
+rails db:migrate
+```
+Add respond_with using jsonapi_serializers method
+```
+rails generate serializer user id email created_at
+```
+Add the attributes
+```
+class UserSerializer
+  include JSONAPI::Serializer
+  attributes :id, :email, :created_at
+end
+```
+Now, we have to tell devise to communicate through JSON by adding these methods in the RegistrationsController and SessionsController
+```
+class Users::RegistrationsController < Devise::RegistrationsController
+  respond_to :json
+  private
+def respond_with(resource, _opts = {})
+    if request.method == "POST" && resource.persisted?
+      render json: {
+        status: {code: 200, message: "Signed up sucessfully."},
+        data: UserSerializer.new(resource).serializable_hash[:data][:attributes]
+      }, status: :ok
+    elsif request.method == "DELETE"
+      render json: {
+        status: { code: 200, message: "Account deleted successfully."}
+      }, status: :ok
+    else
+      render json: {
+        status: {code: 422, message: "User couldn't be created successfully. #{resource.errors.full_messages.to_sentence}"}
+      }, status: :unprocessable_entity
+    end
+  end
+end
+```
+```
+class Users::SessionsController < Devise::SessionsController
+  respond_to :json
+  private
+  def respond_with(resource, _opts = {})
+    render json: {
+      status: {code: 200, message: 'Logged in sucessfully.'},
+      data: UserSerializer.new(resource).serializable_hash[:data][:attributes]
+    }, status: :ok
+  end
+  def respond_to_on_destroy
+    if current_user
+      render json: {
+        status: 200,
+        message: "logged out successfully"
+      }, status: :ok
+    else
+      render json: {
+        status: 401,
+        message: "Couldn't find an active session."
+      }, status: :unauthorized
+    end
+  end
+end
+```
+## Testing on Postman.
+User Signup: Post http://localhost:3000/signup
+```
+{
+  "user": {
+    "email": "test@test.com",
+    "password": "password"
+  }
+}
+```
+Response:
+```
+#response
+{
+  "status": {
+    "code": 200,
+    "message": "Signed up sucessfully."
+  },
+  "data": {
+    "id": 1,
+    "email": "test@test.com",
+    "created_at": "2023-01-27T03:51:52.255Z",
+    "created_date": "01/27/2023"
+  }
+}
+```
+User Login: Post http://localhost:3000/login
+```
+{
+  "user": {
+    "email": "test3@test.com",
+    "password": "password"
+  }
+}
+```
+Response: 
+```
+#response
+{
+    "status": {
+        "code": 200,
+        "message": "Logged in sucessfully."
+    },
+    "data": {
+        "id": 3,
+        "email": "test2@test.com",
+        "created_at": "02122024"
+    }
+}
+```
+User Logout: DELETE http://localhost:3000/logout
+```
+DELETE 'http://localhost:3000/logout' \
+--header 'Authorization: Bearer xxxxxx'
+```
+Response:
+```
+#response
+{
+    "status": 200,
+    "message": "logged out successfully"
+}
+```
+Note: If you are getting an error that looked something like this:
+```
+Completed 500 Internal Server Error in 301ms 
+```
+```
+ActionDispatch::Request::Session::DisabledSessionError (Your application has sessions disabled. To write to the session you must first configure a session store):
+```
+To implement the fix, create a new file in controllers/concerns:
+```
+# app/controllers/concerns/rack_session_fix.rb
+module RackSessionFix
+  extend ActiveSupport::Concern
+  class FakeRackSession < Hash
+    def enabled?
+      false
+    end
+  end
+  included do
+    before_action :set_fake_rack_session_for_devise
+    private
+    def set_fake_rack_session_for_devise
+      request.env['rack.session'] ||= FakeRackSession.new
+    end
+  end
+end
+```
+```
+class Users::SessionsController < Devise::SessionsController
+  include RackSessionFix
+  ...
+end
+
+
+class Users::RegistrationsController < Devise::RegistrationsController
+  include RackSessionFix
+  ...
+end
+```
+
 
 ## Create Kanji Model
 ```
